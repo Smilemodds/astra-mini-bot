@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ ASTRA MINI BOT ✦</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            border-radius: 20px;
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #b3e5fc;
+        }
+
+        .info-value {
+            color: #fff;
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .info-value {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✦ ASTRA MINI BOT ✦</h1>
+            <div class="status-badge">🟢 Online</div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-item">
+                <span class="info-label">👤 Bot Name</span>
+                <span class="info-value" id="botName">ASTRA MINI BOT</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">👨‍💻 Developer</span>
+                <span class="info-value">𝐒𝚳𝚰𝐋𝚵</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">⚡ Powered By</span>
+                <span class="info-value">ASTRA TECH</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">🖥 Server</span>
+                <span class="info-value">Katabump</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">📦 Platform</span>
+                <span class="info-value">Node.js</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">⏳ Runtime</span>
+                <span class="info-value" id="runtime">Active</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">📅 Date</span>
+                <span class="info-value" id="date">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">🕒 Time</span>
+                <span class="info-value" id="time">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">🌍 Connection</span>
+                <span class="info-value" id="connection">Connected</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>━━━━━━━━━━━━━━━━━━━━━━</p>
+            <p>Powered by ASTRA TECH</p>
+            <p>Created by 𝐒𝚳𝚰𝐋𝚵</p>
+            <p>Version 1.0.0</p>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('time').textContent = now.toLocaleTimeString();
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        async function loadInfo() {
+            try {
+                const response = await fetch('/api/info');
+                const data = await response.json();
+                
+                document.getElementById('botName').textContent = data.botName || 'ASTRA MINI BOT';
+            } catch (error) {
+                console.error('Error loading info:', error);
+            }
+        }
+
+        loadInfo();
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
